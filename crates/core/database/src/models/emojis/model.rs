@@ -34,6 +34,9 @@ auto_derived_partial!(
         /// Whether the emoji is marked as nsfw
         #[serde(skip_serializing_if = "crate::if_false", default)]
         pub nsfw: bool,
+        /// Whether this is a sticker (shown large when sent on its own; Nitro parity fork)
+        #[serde(skip_serializing_if = "crate::if_false", default)]
+        pub sticker: bool,
     },
     "PartialEmoji"
 );

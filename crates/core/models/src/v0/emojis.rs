@@ -33,6 +33,12 @@ auto_derived!(
             serde(skip_serializing_if = "crate::if_false", default)
         )]
         pub nsfw: bool,
+        /// Whether this is a sticker (shown large when sent on its own)
+        #[cfg_attr(
+            feature = "serde",
+            serde(skip_serializing_if = "crate::if_false", default)
+        )]
+        pub sticker: bool,
     }
 
     /// Parent Id of the emoji
@@ -53,6 +59,9 @@ auto_derived!(
         /// Whether the emoji is mature
         #[serde(default)]
         pub nsfw: bool,
+        /// Create a sticker instead of an emoji (separate slot limit)
+        #[serde(default)]
+        pub sticker: bool,
     }
 
     /// Partial emoji representation

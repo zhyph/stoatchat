@@ -379,6 +379,7 @@ pub struct GlobalLimits {
     pub message_reactions: usize,
     pub server_emoji: usize,
     pub server_sounds: usize,
+    pub server_stickers: usize,
     pub server_roles: usize,
     pub server_channels: usize,
 
