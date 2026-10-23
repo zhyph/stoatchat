@@ -293,6 +293,10 @@ pub enum EventV1 {
         volume: u8,
     },
 
+    /// Cosmetics changed (Nitro parity fork): clients refetch `kind` ("user", "server" or "member") for `id`
+    /// (member: "<server>:<user>")
+    CosmeticsUpdate { kind: String, id: String },
+
     /// New report
     ReportCreate(Report),
     /// New channel
