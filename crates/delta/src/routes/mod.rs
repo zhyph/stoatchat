@@ -7,6 +7,7 @@ use rocket::{Build, Rocket};
 mod bots;
 mod channels;
 mod customisation;
+mod soundboard;
 mod invites;
 mod onboard;
 mod policy;

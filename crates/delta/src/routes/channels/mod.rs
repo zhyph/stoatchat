@@ -31,6 +31,7 @@ mod webhook_fetch_all;
 
 pub fn routes() -> (Vec<Route>, OpenApi) {
     openapi_get_routes_spec![
+        super::soundboard::sound_play::play,
         channel_ack::ack,
         channel_fetch::fetch,
         members_fetch::fetch_members,

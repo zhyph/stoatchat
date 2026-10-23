@@ -130,6 +130,7 @@ pub enum Tag {
     icons,
     banners,
     emojis,
+    sounds,
 }
 
 /// Request body for upload
@@ -160,6 +161,7 @@ pub struct UploadResponse {
 /// | icons | 2.5 MB | 40 MP or 10,000px | Image |
 /// | banners | 6 MB | 40 MP or 10,000px | Image |
 /// | emojis | 500 KB | 40 MP or 10,000px | Image |
+/// | sounds | 1 MB | - | Audio |
 #[utoipa::path(
     post,
     path = "/{tag}",
@@ -221,7 +223,7 @@ async fn upload_file(
     };
 
     // Generate an ID for this file
-    let id = if matches!(tag, Tag::emojis) {
+    let id = if matches!(tag, Tag::emojis | Tag::sounds) {
         ulid::Ulid::new().to_string()
     } else {
         nanoid::nanoid!(42)
@@ -243,8 +245,13 @@ async fn upload_file(
     // Determine metadata for the file
     let metadata = generate_metadata(&file.contents, mime_type);
 
-    // Block non-images for non-attachment uploads
-    if !matches!(tag, Tag::attachments) && !matches!(metadata, Metadata::Image { .. }) {
+    // Block non-images for non-attachment uploads (sounds must be audio instead)
+    let allowed = match tag {
+        Tag::attachments => true,
+        Tag::sounds => matches!(metadata, Metadata::Audio),
+        _ => matches!(metadata, Metadata::Image { .. }),
+    };
+    if !allowed {
         return Err(create_error!(FileTypeNotAllowed));
     }
 
