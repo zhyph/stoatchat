@@ -999,13 +999,16 @@ impl Message {
             return Err(create_error!(InvalidOperation));
         }
 
+        // Super reactions (Nitro parity fork) are stored as "super:<emoji>"; validate the emoji itself
+        let base = emoji.strip_prefix("super:").unwrap_or(emoji);
+
         // Check if the emoji is whitelisted
-        if !self.interactions.can_use(emoji) {
+        if !self.interactions.can_use(base) {
             return Err(create_error!(InvalidOperation));
         }
 
         // Check if the emoji is usable by us
-        if !Emoji::can_use(db, emoji).await? {
+        if !Emoji::can_use(db, base).await? {
             return Err(create_error!(InvalidOperation));
         }
 
