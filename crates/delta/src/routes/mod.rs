@@ -6,6 +6,7 @@ use rocket::{Build, Rocket};
 
 mod bots;
 mod channels;
+mod cosmetics;
 mod customisation;
 mod soundboard;
 mod invites;
@@ -36,6 +37,7 @@ pub fn mount(config: Settings, mut rocket: Rocket<Build>) -> Rocket<Build> {
             "/servers" => servers::routes(),
             "/invites" => invites::routes(),
             "/custom" => customisation::routes(),
+            "/cosmetics" => cosmetics::routes(),
             "/safety" => safety::routes(),
             "/auth/account" => account::routes(),
             "/auth/session" => session::routes(),
@@ -57,6 +59,7 @@ pub fn mount(config: Settings, mut rocket: Rocket<Build>) -> Rocket<Build> {
             "/servers" => servers::routes(),
             "/invites" => invites::routes(),
             "/custom" => customisation::routes(),
+            "/cosmetics" => cosmetics::routes(),
             "/safety" => safety::routes(),
             "/auth/account" => account::routes(),
             "/auth/session" => session::routes(),

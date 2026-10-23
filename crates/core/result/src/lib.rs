@@ -155,6 +155,7 @@ pub enum ErrorType {
     TooManyEmoji {
         max: usize,
     },
+    VanityTaken,
     TooManySoundboardSounds {
         max: usize,
     },

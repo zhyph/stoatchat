@@ -7,6 +7,7 @@ mod channel_invites;
 mod channel_unreads;
 mod channel_webhooks;
 mod channels;
+mod cosmetics;
 mod discover_requests;
 mod emojis;
 mod file_hashes;
@@ -34,6 +35,7 @@ pub use channel_invites::*;
 pub use channel_unreads::*;
 pub use channel_webhooks::*;
 pub use channels::*;
+pub use cosmetics::*;
 pub use discover_requests::*;
 pub use emojis::*;
 pub use file_hashes::*;
@@ -84,6 +86,7 @@ pub trait AbstractDatabase:
     + account_invites::AbstractAccountInvites
     + sessions::AbstractSessions
     + soundboard_sounds::AbstractSoundboardSounds
+    + cosmetics::AbstractCosmetics
     + mfa_tickets::AbstractMFATickets
     + discover_requests::AbstractDiscoverRequest
 {
