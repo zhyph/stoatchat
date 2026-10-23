@@ -71,6 +71,7 @@ auto_derived!(
         ChannelIcon,
         ServerIcon,
         RoleIcon,
+        SoundboardSound,
     }
 
     /// Information about what the file was used for
@@ -235,6 +236,20 @@ impl File {
             FileUsedFor {
                 id: parent.to_owned(),
                 object_type: FileUsedForType::Emoji,
+            },
+            uploader_id.to_owned(),
+        )
+        .await
+    }
+
+    /// Use a file for a soundboard sound (the sound id is the file id)
+    pub async fn use_sound(db: &Database, id: &str, uploader_id: &str) -> Result<File> {
+        db.find_and_use_attachment(
+            id,
+            "sounds",
+            FileUsedFor {
+                id: id.to_owned(),
+                object_type: FileUsedForType::SoundboardSound,
             },
             uploader_id.to_owned(),
         )

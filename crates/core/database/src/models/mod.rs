@@ -21,6 +21,7 @@ mod server_bans;
 mod server_members;
 mod servers;
 mod sessions;
+mod soundboard_sounds;
 mod user_settings;
 mod users;
 
@@ -47,6 +48,7 @@ pub use server_bans::*;
 pub use server_members::*;
 pub use servers::*;
 pub use sessions::*;
+pub use soundboard_sounds::*;
 pub use user_settings::*;
 pub use users::*;
 
@@ -81,6 +83,7 @@ pub trait AbstractDatabase:
     + accounts::AbstractAccounts
     + account_invites::AbstractAccountInvites
     + sessions::AbstractSessions
+    + soundboard_sounds::AbstractSoundboardSounds
     + mfa_tickets::AbstractMFATickets
     + discover_requests::AbstractDiscoverRequest
 {

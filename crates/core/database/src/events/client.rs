@@ -7,7 +7,8 @@ use revolt_models::v0::{
     FieldsChannel, FieldsMember, FieldsMessage, FieldsRole, FieldsServer, FieldsUser,
     FieldsWebhook, Member, MemberCompositeKey, Message, PartialChannel, PartialEmoji,
     PartialMember, PartialMessage, PartialRole, PartialServer, PartialUser, PartialUserVoiceState,
-    PartialWebhook, PolicyChange, RemovalIntention, Report, Server, User, UserSettings,
+    PartialSoundboardSound, PartialWebhook, PolicyChange, RemovalIntention, Report, Server,
+    SoundboardSound, User, UserSettings,
     UserVoiceState, Webhook,
 };
 
@@ -266,6 +267,30 @@ pub enum EventV1 {
     /// Delete emoji
     EmojiDelete {
         id: String,
+    },
+
+    /// New soundboard sound in a server
+    SoundboardSoundCreate(SoundboardSound),
+
+    /// Soundboard sound edited
+    SoundboardSoundUpdate {
+        id: String,
+        server: String,
+        data: PartialSoundboardSound,
+    },
+
+    /// Soundboard sound removed
+    SoundboardSoundDelete {
+        id: String,
+        server: String,
+    },
+
+    /// Someone in a voice channel played a sound; clients in that call play it locally
+    SoundboardPlay {
+        channel: String,
+        user: String,
+        sound: String,
+        volume: u8,
     },
 
     /// New report

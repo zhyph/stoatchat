@@ -29,6 +29,10 @@ mod server_fetch;
 
 pub fn routes() -> (Vec<Route>, OpenApi) {
     openapi_get_routes_spec![
+        super::soundboard::sound_list::list,
+        super::soundboard::sound_create::create,
+        super::soundboard::sound_edit::edit,
+        super::soundboard::sound_delete::delete,
         server_create::create_server,
         server_delete::delete,
         server_fetch::fetch,

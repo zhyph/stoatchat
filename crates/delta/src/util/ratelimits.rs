@@ -31,6 +31,9 @@ impl<'a> RatelimitResolver<Request<'a>> for DeltaRatelimits {
                         if let Some("messages") = extra {
                             return ("messaging", Some(id));
                         }
+                        if let Some("sounds") = extra {
+                            return ("soundboard", Some(id));
+                        }
                     }
 
                     ("channels", Some(id))
@@ -59,6 +62,7 @@ impl<'a> RatelimitResolver<Request<'a>> for DeltaRatelimits {
             "users" => 20,
             "bots" => 10,
             "messaging" => 10,
+            "soundboard" => 5,
             "channels" => 15,
             "servers" => 5,
             "auth" => 15,
