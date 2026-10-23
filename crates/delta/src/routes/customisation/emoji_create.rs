@@ -41,12 +41,20 @@ pub async fn create_emoji(
                 .await
                 .throw_if_lacking_channel_permission(ChannelPermission::ManageCustomisation)?;
 
-            // Check that we haven't hit the emoji limit
-            let emojis = db.fetch_emoji_by_parent_id(&server.id).await?;
-            if emojis.len() >= config.features.limits.global.server_emoji {
-                return Err(create_error!(TooManyEmoji {
-                    max: config.features.limits.global.server_emoji,
-                }));
+            // Check that we haven't hit the limit; emoji and stickers have separate slots
+            let max = if data.sticker {
+                config.features.limits.global.server_stickers
+            } else {
+                config.features.limits.global.server_emoji
+            };
+            let used = db
+                .fetch_emoji_by_parent_id(&server.id)
+                .await?
+                .iter()
+                .filter(|emoji| emoji.sticker == data.sticker)
+                .count();
+            if used >= max {
+                return Err(create_error!(TooManyEmoji { max }));
             }
         }
         v0::EmojiParent::Detached => return Err(create_error!(InvalidOperation)),
@@ -63,6 +71,7 @@ pub async fn create_emoji(
         name: data.name,
         animated: "image/gif" == &attachment.content_type,
         nsfw: data.nsfw,
+        sticker: data.sticker,
     };
 
     // Save emoji

@@ -93,6 +93,7 @@ mod test {
             name: "initial_name".to_string(),
             animated: false,
             nsfw: false,
+            sticker: false,
         };
         emoji.create(&harness.db).await.expect("`Emoji` created");
 
@@ -132,6 +133,7 @@ mod test {
             name: "valid_name".to_string(),
             animated: false,
             nsfw: false,
+            sticker: false,
         };
         emoji.create(&harness.db).await.expect("`Emoji` created");
 
@@ -165,6 +167,7 @@ mod test {
             name: "detached_name".to_string(),
             animated: false,
             nsfw: false,
+            sticker: false,
         };
         emoji.create(&harness.db).await.expect("`Emoji` created");
 
@@ -206,6 +209,7 @@ mod test {
             name: "member_uploaded_name".to_string(),
             animated: false,
             nsfw: false,
+            sticker: false,
         };
         emoji.create(&harness.db).await.expect("`Emoji` created");
 

@@ -241,6 +241,8 @@ message_reactions = 20
 server_emoji = 100
 # Soundboard sounds per server
 server_sounds = 48
+# Stickers per server (separate from emoji slots)
+server_stickers = 60
 server_roles = 200
 server_channels = 200
 
